@@ -22,7 +22,7 @@ it really made me busy while i was trying to focus on the application logic
 
 Testing
 --------
-i had no time to perform any kind of JUnit testing, and im not familiure with sandbox.
+i had no time to perform any kind of JUnit testing, and im not familire with sandbox.
 
 Presenting Data
 ----------------
