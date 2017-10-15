@@ -1,0 +1,59 @@
+/**
+ * 
+ */
+package com.expedia.test.junit;
+
+import java.io.IOException;
+
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.junit.Before;
+import org.junit.Test;
+import org.mockito.Mockito;
+
+import com.expedia.web.servlet.GetMyOffersServlet;
+
+/**
+ * Tests for {@link GetMyOffersServlet#doPost(HttpServletRequest,
+ * HttpServletResponse)}.
+ * 
+ * @author Hala Odeh
+ * @since Oct 14, 2017
+ */
+public class TestGetMyOffersServlet extends Mockito {
+
+	private GetMyOffersServlet servlet;
+	private HttpServletRequest request;
+	private HttpServletResponse response;
+
+	/**
+	 * Create an initialized servlet and a request and response for this
+	 * instance's test.
+	 */
+	@Before
+	public void setUp() {
+		servlet = new GetMyOffersServlet();
+		request = mock(HttpServletRequest.class);       
+		response = mock(HttpServletResponse.class); 
+	}
+
+	/**
+	 * Test the doPost method with example argument values.
+	 *
+	 * @throws ServletException if the servlet throws such an exception.
+	 * @throws IOException if the servlet throws such an exception.
+	 */
+	@Test
+	public void correctParametersInRequest() throws ServletException, IOException {
+		when(request.getParameter("destination")).thenReturn("New Orleans");
+
+		servlet.doPost(request, response);
+
+		verify(request, atLeast(1)).getParameter("destination"); // only if you want to verify destination was called...
+
+	}
+
+
+}

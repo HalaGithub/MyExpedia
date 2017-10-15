@@ -1,0 +1,116 @@
+/**
+ *  
+ */
+package com.expedia.web.util;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.net.URLConnection;
+import java.nio.charset.Charset;
+
+import org.apache.log4j.Logger;
+
+import com.expedia.integration.beans.Hotel;
+import com.expedia.integration.beans.Offers;
+import com.expedia.integration.util.MessageBuilder;
+import com.expedia.web.bean.SearchCriteriaBean;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.JsonParseException;
+
+/**
+ * offers method for sending requests and receiving reponses from expedia.
+ * 
+ * @author Hala Odeh
+ * @since Oct 13, 2017
+ */
+public class ExpediaClientHelper {
+    private static final Logger logger = Logger.getLogger("ExpediaClientHelper");
+    private static final String BASE_URL = "https://offersvc.expedia.com/offers/v2/getOffers";
+    private static final String DEFAULT_QUERY_STRING = "?scenario=deal-finder&page=foo&uid=foo&productType=Hotel";
+
+
+    /**
+     * Send request to expedia destination
+     * 
+     * @param bean containing properies annotated with "@QueryKey" to be added to queryString
+     */
+    public static Offers sendRequest(SearchCriteriaBean bean) { 
+        try { 
+            String strResult = ""; 
+            StringBuffer urlBuffer = new StringBuffer(BASE_URL);
+            urlBuffer.append(DEFAULT_QUERY_STRING);
+            if(bean != null) {
+            	String searchCriteriaQuery = MessageBuilder.buildQueryString(bean);
+            	urlBuffer.append("&").append(searchCriteriaQuery);
+                logger.info("Requested searchCriteriaQuery:" + searchCriteriaQuery );
+            }
+            URLConnection urlConn = null; 
+            InputStreamReader in = null; 
+            StringBuilder sb = new StringBuilder();
+            try { 
+                logger.info("will connect to :" + urlBuffer.toString());
+                
+                //StringBuilder sb = new StringBuilder();
+                //send get request with the criteria and get the desire results  
+                URL url = new URL(urlBuffer.toString()); 
+               
+                //establish the connection 
+                urlConn = url.openConnection(); 
+                if (urlConn != null) 
+                    urlConn.setReadTimeout(60 * 1000); 
+                if (urlConn != null && urlConn.getInputStream() != null) { 
+                    in = new InputStreamReader(urlConn.getInputStream(),Charset.defaultCharset()); 
+                    BufferedReader bufferedReader = new BufferedReader(in); 
+                    if (bufferedReader != null) { 
+                        int cp; 
+                        while ((cp = bufferedReader.read()) != -1) {sb.append((char) cp); 
+                        } 
+                        bufferedReader.close(); 
+                    } 
+                } 
+                //close the connection 
+                in.close(); 
+            } catch (Exception e) { 
+                logger.error("Exception while calling URL", e);
+                return null;
+            } 
+
+
+            strResult = sb.toString();
+            logger.info("Received Results before parsing " + strResult ); 
+            
+            
+            //Parse JSON response to my response bean. 
+            Offers offers = getResponseBeanFromJsonString(strResult, Offers.class); 
+            
+            for(Hotel hotel : offers.getHotel().getHotels()) {
+            	System.out.println(" getOriginalPricePerNight " + hotel.getHotelPricingInfo().getOriginalPricePerNight());
+            }
+
+            
+            return offers;
+        } catch (Exception e) { 
+            logger.error("Exception while sending request to destination", e);
+        } 
+        return null; 
+    } 
+    
+    private static <T> T getResponseBeanFromJsonString(String jsonString, 
+			Class<T> classType) throws JsonParseException,JsonMappingException, IOException { 
+
+
+		//Map the JSON string we got from Expedia URL to our response bean  
+		ObjectMapper mapper = new ObjectMapper(); 
+		mapper.configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES,false);
+		T bean = mapper.readValue(jsonString, classType); 
+		return bean; 
+
+
+	} 
+
+    
+}

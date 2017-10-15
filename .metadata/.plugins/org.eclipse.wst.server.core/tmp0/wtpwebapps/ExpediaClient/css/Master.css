@@ -1,0 +1,217 @@
+#content
+{
+   background-color: #f2f2f2;
+   padding: 20px 10px;
+   overflow: auto;
+   display:block;
+	overflow:auto;
+	height: 100%;
+	margin: 10px;
+}
+#tab-container
+{
+   float: left;
+   margin: 50px 0 0 0;
+   width: 150px;
+}
+#tab-container ul
+{
+   list-style: none;
+   text-align: center;
+}
+#tab-container ul li
+{
+   border-top: 1px solid #666;
+   border-right: 1px solid #666;
+   border-bottom: 1px solid #666;
+   border-left: 8px solid #666;
+   background-color: #ddd;
+   margin: 8px 0;
+}
+#tab-container ul li a,
+#tab-container ul li a:visited
+{
+   text-decoration: none;
+   color: #666;
+   display: block;
+   padding: 15px 5px;
+}
+#tab-container ul li:hover
+{
+   border-left: 8px solid #333;
+}
+#tab-container ul li a:hover
+{
+   color: #000;
+}
+#tab-container ul li.selected
+{
+   border-right: none;
+   background-color: #fff;
+   border-left: 8px solid #006699;
+}
+#main-container
+{
+   min-height: 250px;
+   margin: 10px 10px 10px 10px;
+   padding: 20px;
+   background-color: #fff;
+   border: 1px solid #888;
+   height: 90%;
+}
+
+
+.WARNING {
+	font-family: verdana;
+	font-size: 11px;
+	font-weight: bold;
+	text-align: center;
+	color: red;
+	border-width: 0px;
+	border-style: none;
+	margin: 10px;
+}
+
+.INFO {
+	font-family: verdana;
+	font-size: 11px;
+	font-weight: bold;
+	text-align: center;
+	color: green;
+	border-width: 0px;
+	border-style: none;
+}
+
+.BUTTON {
+	font-family: verdana;
+	font-size: 10px;
+	width: 110px;
+	height: 20px;
+	border-style: dashed;
+	border-color: #5c7bb0;
+	border-width: 1px;
+	background-color: silver;
+	margin: 10px;
+}
+
+
+TD {
+	font-family: verdana;
+	font-size: 10px;
+	height: auto;
+	border-style: none;
+	border-width: 1px;
+}
+
+.ROWHEADERLIGHT {
+	background-color: #E8E8E8;
+	font-weight: bold;
+}
+
+.ROWHEADER {
+	background-color: #c0c0c0;
+	font-weight: bold;
+}
+
+.ROWHEADERGROUP {
+	background-color: #c0c0c0;
+	font-size: 14px;
+	font-weight: bold;
+}
+
+.ROWDATA {
+	background-color: #f1f1f1;
+}
+
+A:HOVER {
+	font-family: verdana;
+	font-size: 11px;
+	font-weight: bold;
+}
+
+A:VISITED {
+	font-family: verdana;
+	font-size: 11px;
+	font-weight: bold;
+}
+
+A:LINK {
+	font-family: verdana;
+	font-size: 11px;
+	font-weight: bold;
+}
+
+.importantfield {
+	color: red;
+	font-size: 10px;
+	text-align: center;
+}
+
+.requiredfield {
+	color: red;
+	font-size: 10px;
+	text-align: right;
+}
+
+
+.TEXTFIELD {
+	font-family: verdana;
+	font-size: 10px;
+	width: 200;
+	height: 20;
+	border-style: solid;
+	border-width: 1px;
+	margin: 5px;
+}
+
+.LARGTEXTFIELD {
+	font-family: verdana;
+	font-size: 10px;
+	width: 350;
+	height: 20;
+	border-style: solid;
+	border-width: 1px;
+}
+
+.LARGTEXTFAREA {
+	font-family: verdana;
+	font-size: 10px;
+	width: 350;
+	border-style: solid;
+	border-width: 1px;
+}
+
+.ERRORTEXTFIELD {
+	font-family: verdana;
+	font-size: 10px;
+	width: 200;
+	height: 20;
+	border-style: solid;
+	border-width: 1px;
+	color: red ;
+	border-color: black;
+	
+}
+
+.ERRORLARGTEXTFIELD {
+	font-family: verdana;
+	font-size: 10px;
+	width: 350;
+	height: 20;
+	border-style: solid;
+	border-width: 1px;
+	color: red ;
+	border-color: black;
+}
+
+.responseSide{
+float: left;
+margin: 0 50px;
+color: #006633;
+}
+
+.requestSide{
+float: left;
+margin: 0 50px;
+color: #330066;
+}
